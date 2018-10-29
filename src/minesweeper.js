@@ -58,11 +58,53 @@ let generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
     while (numberOfBombsPlaced < numberOfBombs ) {
         let randomRowIndex = Math.floor(Math.random() * numberOfRows);
         let randomColumnIndex = Math.floor(Math.random() * numberOfColumns);
-        board[randomRowIndex][randomColumnIndex] = 'B';
-        numberOfBombsPlaced++;
+        //fixing duplicated bombs with an if. If no bombs in randomRowIndex and randomColumnIndex, place bombs there.
+        if (board[randomRowIndex][randomColumnIndex] !== 'B') {
+            board[randomRowIndex][randomColumnIndex] = 'B';
+            numberOfBombsPlaced++;
+        }
     }
     return board;
 }
+
+//flipped tile neighborbomb offsets
+const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
+    const neighborOffsets = [
+        [-1,-1],
+        [-1,0],
+        [-1,1],
+        [0,-1],
+        [0,1],
+        [1,-1],
+        [1,0],
+        [1,1]
+    ];
+    const numberOfRows = bombBoard.length;
+    const numberOfColumns = bombBoard[0].length; //getting length of the first element of the bombBoard array
+    let numberOfBombs = 0; //stores the number of bombs adjacent to flipped tile. TODO: Re-check step 20
+    neighborOffsets.forEach(offset => {
+        const neighborRowIndex = rowIndex + offset[0];
+        const neighborColumnIndex = columnIndex + offset[1];
+        //checks for neighboring tiles if valid and not offgrid
+        if (neighborRowIndex >= 0 && neighborRowIndex < numberOfRows && neighborColumnIndex >= 0 && neighborColumnIndex < numberOfColumns) {
+
+        } if (bombBoard[neighborRowIndex]['B'] == 'B') {
+            numberOfBombs++;
+        }
+    });
+    return numberOfBombs;
+
+    const flipTile = (playerBoard, bombBoard, rowIndex, columnIndex) => {
+        if (playerBoard[rowIndex][columnIndex] !== ' ') {
+            console.log('This tile has already been flipped!');
+            return;
+        } else if (playerBoard[rowIndex][columnIndex] !== 'B') {
+            numberOfBombs++;
+        } else (playerBoard[rowIndex][columnIndex] = getNumberOfNeighborBombs(bombBoard, rowIndex, columnIndex)) {
+
+        }
+    }
+};
 
 /*
 Steps 27-40
@@ -95,3 +137,7 @@ This is due to the missing control flow code mentioned in Step 26.
 This is because you are adding null to its board. This is fine, as this is a board that is intended to only hold
 information, and not to be printed. We are printing here to demonstrate the utility of the generateBombBoard() function.
  */
+
+flipTile(playerBoard, bombBoard, 0, 0);
+console.log('Updated Player Board:');
+printBoard(playerBoard);
