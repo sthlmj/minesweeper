@@ -1,7 +1,21 @@
 /*
 TODO: Add a Game and Board class
-TODO: Create an instance of a game and play a move 
+TODO: Create an instance of a game and play a move
  */
+
+class Board{
+    constructor(numberOfRows, numberOfColumns, numberOfBombs) {
+        this._numberOfBombs = numberOfBombs;
+        this._numberOfTiles = numberOfRows * numberOfColumns;
+        this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);
+        this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);
+    }
+
+    get playerBoard() {
+        return this._playerBoard;
+    }
+}
+
 
 const generatePlayerBoard = (numberOfRows, numberOfColumns) => {
     const board = [];
