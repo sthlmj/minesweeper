@@ -1,32 +1,4 @@
-/*
-Add a Game and Board class
-Create an instance of a game and play a move
- */
-
-//Minesweeper main class
-class Game{
-    constructor(numberOfRows, numberOfColumns, numberOfBombs) {
-        //creates an instance of board
-        this._board = new Board(numberOfRows, numberOfColumns, numberOfBombs);
-    }
-
-    // 28.
-    playMove(rowIndex, columnIndex) {
-        this._board.flipTile(rowIndex, columnIndex);
-
-        if (this._board.playerBoard[rowIndex][columnIndex] === 'B') {
-            console.log('BOYAKA! YOU JUST PLAYED YOURSELF! GAME OVER!');
-            this._board.print();
-        } else if (!this._board.hasSafeTile()) {
-            console.log('WELL PLAYED! YOU WON!');
-        } else {
-            console.log('Current Board:')
-            this._board.print();
-        }
-    }
-}
-
-class Board{
+export class Board{
     constructor(numberOfRows, numberOfColumns, numberOfBombs) {
         this._numberOfBombs = numberOfBombs;
         this._numberOfTiles = numberOfRows * numberOfColumns;
@@ -128,7 +100,3 @@ class Board{
         return board;
     };
 }
-
-//run the game
-const g = new Game(10,10,9);
-g.playMove(5,5)
